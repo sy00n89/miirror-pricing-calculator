@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miirror — Recovery Economics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F4F5FB;
+  --surface3: #EAECF7;
+  --border: rgba(58,56,140,0.1);
+  --border-md: rgba(58,56,140,0.16);
+  --navy: #2B2D8F;
+  --navy-dark: #1E1F6B;
+  --navy-light: #4547B0;
+  --amber: #F5A623;
+  --amber-dark: #D98A0A;
+  --amber-bg: #FEF6E6;
+  --amber-border: #F5C96A;
+  --amber-text: #7A4A00;
+  --text-primary: #1A1B5E;
+  --text-secondary: #5A5B8A;
+  --text-tertiary: #9A9BBF;
+  --green: #2A8A5A;
+  --green-bg: #E6F5EE;
+  --green-border: #6ABFA0;
+  --green-text: #144D30;
+  --red: #C0392B;
+  --red-bg: #FDECEB;
+  --red-border: #E89088;
+  --red-text: #5C1208;
+  --warn-bg: #FEF6E6;
+  --warn-border: #F5C96A;
+  --warn-text: #7A4A00;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-pill: 99px;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: #fff;
+  padding: 0 52px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+.logo .dot { color: var(--amber); }
+.header-nav { display: flex; gap: 32px; align-items: center; }
+.header-nav a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.header-pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--surface2);
+  border: 1px solid var(--border-md);
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+}
+
+/* ── HERO ── */
+.hero {
+  background: #fff;
+  padding: 64px 52px 72px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-blob {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 52%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-blob svg { width: 100%; height: 100%; }
+.hero-content { position: relative; z-index: 2; max-width: 560px; }
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-dark);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--navy);
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+.hero h1 em { font-style: italic; color: var(--amber); font-weight: 800; }
+.hero p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  max-width: 440px;
+  line-height: 1.7;
+}
+
+/* ── STAT BAR ── */
+.stat-bar {
+  background: var(--navy);
+  padding: 28px 52px;
+  display: flex;
+  gap: 0;
+}
+.stat-bar-item {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  padding: 0 24px;
+}
+.stat-bar-item:last-child { border-right: none; }
+.stat-bar-item .sbn {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-bar-item .sbn span { color: var(--amber); }
+.stat-bar-item .sbl { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); }
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 52px 52px 80px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .main { grid-template-columns: 1fr; padding: 32px 24px 64px; }
+  .hero { padding: 40px 24px 56px; }
+  .site-header { padding: 0 24px; }
+  .hero-blob { display: none; }
+  .stat-bar { padding: 24px; flex-wrap: wrap; gap: 16px; }
+  .stat-bar-item { border-right: none; flex: 0 0 calc(50% - 8px); }
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.card:last-child { margin-bottom: 0; }
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+/* ── MODE TOGGLE ── */
+.mode-toggle {
+  display: flex;
+  background: var(--surface2);
+  border-radius: var(--r-pill);
+  padding: 4px;
+  gap: 3px;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+}
+.mode-btn {
+  flex: 1;
+  padding: 9px 14px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mode-btn.active {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(43,45,143,0.25);
+}
+
+/* ── SLIDERS ── */
+.slider-group { margin-bottom: 24px; }
+.slider-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.slider-top label { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+.slider-top .val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy);
+  background: var(--surface2);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-md);
+  padding: 2px 12px;
+  min-width: 72px;
+  text-align: center;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: var(--r-pill);
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--navy) 0%, var(--navy) 0%, #DDDFF5 0%, #DDDFF5 100%);
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--navy);
+  cursor: pointer;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 2px var(--navy), 0 2px 10px rgba(43,45,143,0.25);
+  transition: transform 0.12s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+input[type=range]::-moz-range-thumb {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 2px var(--navy);
+}
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: 6px;
+}
+
+/* ── PROGRESS BAR ── */
+.bar-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; }
+.bar-pct-val { font-weight: 800; color: var(--navy); }
+.bar-track {
+  height: 10px;
+  background: var(--surface2);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.bar-fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  transition: width 0.35s ease, background 0.35s ease;
+  background: var(--red);
+}
+.bar-fill.near { background: var(--amber); }
+.bar-fill.cover { background: var(--green); }
+
+/* ── BREAKDOWN TABLE ── */
+.breakdown-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.breakdown-table thead tr { border-bottom: 2px solid var(--surface3); }
+.breakdown-table th {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-tertiary);
+  padding: 0 0 10px; text-align: left;
+}
+.breakdown-table th:last-child { text-align: right; }
+.breakdown-table td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--surface3);
+  color: var(--text-secondary);
+  vertical-align: middle;
+  font-weight: 500;
+}
+.breakdown-table td:nth-child(2) { text-align: center; }
+.breakdown-table td:last-child { text-align: right; font-weight: 700; color: var(--text-primary); }
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: var(--r-pill); letter-spacing: 0.04em;
+}
+.badge-var { background: var(--amber-bg); color: var(--amber-text); border: 1px solid var(--amber-border); }
+.badge-fix { background: var(--surface2); color: var(--text-tertiary); border: 1px solid var(--border-md); }
+.total-row td { border-bottom: none; font-weight: 800 !important; border-top: 2px solid var(--surface3); color: var(--navy) !important; padding-top: 12px; }
+
+/* ── LTV GRID ── */
+.ltv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ltv-cell {
+  background: var(--surface2);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+}
+.ltv-cell .lv { font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 5px; }
+.ltv-cell .lnum { font-size: 26px; font-weight: 800; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
+.ltv-cell .lsub { font-size: 10px; font-weight: 500; color: var(--text-tertiary); margin-top: 3px; }
+
+/* ── STAT CARDS ── */
+.stats-panel { display: flex; flex-direction: column; gap: 14px; }
+.stat-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-xl);
+  padding: 22px 26px;
+  transition: border-color 0.25s, background 0.25s;
+}
+.stat-card .slabel { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
+.stat-card .sval {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: color 0.25s;
+}
+.stat-card .ssub { font-size: 12px; font-weight: 500; color: var(--text-tertiary); margin-top: 5px; }
+
+.stat-card.green { background: var(--green-bg); border-color: var(--green-border); }
+.stat-card.green .sval { color: var(--green); }
+.stat-card.green .ssub { color: var(--green-text); opacity: 0.7; }
+.stat-card.red { background: var(--red-bg); border-color: var(--red-border); }
+.stat-card.red .sval { color: var(--red); }
+.stat-card.red .ssub { color: var(--red-text); opacity: 0.7; }
+.stat-card.amber { background: var(--warn-bg); border-color: var(--warn-border); }
+.stat-card.amber .sval { color: var(--amber-dark); }
+.stat-card.amber .ssub { color: var(--warn-text); opacity: 0.7; }
+
+/* ── VERDICT ── */
+.verdict {
+  border-radius: var(--r-xl);
+  padding: 18px 22px;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 600;
+  border: 1.5px solid var(--border-md);
+  background: var(--surface2);
+  color: var(--text-secondary);
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.verdict.positive { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
+.verdict.negative { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
+.verdict.neutral  { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-dark);
+  padding: 28px 52px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+footer p { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.3); }
+footer a { font-size: 12px; font-weight: 700; color: var(--amber); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">miirror<span class="dot">.</span></div>
+  <nav class="header-nav">
+    <span class="header-pill">Pricing Calculator</span>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-blob" aria-hidden="true">
+    <svg viewBox="0 0 700 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="blur1"><feGaussianBlur stdDeviation="42"/></filter>
+      </defs>
+      <ellipse cx="520" cy="160" rx="260" ry="200" fill="#AEB2E8" filter="url(#blur1)" opacity="0.7"/>
+      <ellipse cx="640" cy="380" rx="200" ry="160" fill="#7B80D4" filter="url(#blur1)" opacity="0.65"/>
+      <ellipse cx="380" cy="300" rx="180" ry="140" fill="#C5C8F2" filter="url(#blur1)" opacity="0.5"/>
+      <ellipse cx="600" cy="80" rx="120" ry="100" fill="#2D6A4F" filter="url(#blur1)" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Seed stage · Recovery economics</span>
+    <h1>Recovery that<br><em>reaches</em> you,<br>wherever you are.</h1>
+    <p>Drag the sliders to model Miirror's revenue, costs, and path to break-even across two go-to-market strategies.</p>
+  </div>
+</section>
+
+<div class="stat-bar">
+  <div class="stat-bar-item"><div class="sbn">775</div><div class="sbl">Break-even users (B2C)</div></div>
+  <div class="stat-bar-item"><div class="sbn"><span>27</span></div><div class="sbl">Break-even clinicians (B2B)</div></div>
+  <div class="stat-bar-item"><div class="sbn">13.9<span>x</span></div><div class="sbl">LTV / CAC ratio</div></div>
+  <div class="stat-bar-item"><div class="sbn"><span>$295k</span></div><div class="sbl">Funding needed to 2028</div></div>
+</div>
+
+<main class="main">
+
+  <!-- Left column -->
+  <div>
+    <div class="card">
+      <p class="section-label">Distribution model</p>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="btn-b2c" onclick="setMode('b2c')">Direct to consumer</button>
+        <button class="mode-btn" id="btn-b2b" onclick="setMode('b2b')">Clinician pilot (B2B)</button>
+      </div>
+
+      <div id="b2c-controls">
+        <div class="slider-group">
+          <div class="slider-top">
+            <label>Paying users</label>
+            <span class="val" id="users-out">2,000</span>
+          </div>
+          <input type="range" min="2000" max="10000" step="50" value="2000" id="users-sl" oninput="fillSlider('users-sl');update()">
+          <div class="slider-ticks"><span>2,000</span><span>4,000</span><span>7,000</span><span>10,000</span></div>
+        </div>
+        <div class="slider-group" style="margin-bottom:0">
+          <div class="slider-top">
+            <label>Monthly price per user</label>
+            <span class="val" id="price-out">$20</span>
+          </div>
+          <input type="range" min="5" max="49" step="1" value="20" id="price-sl" oninput="fillSlider('price-sl');update()">
+          <div class="slider-ticks"><span>$5</span><span>$15</span><span>$30</span><span>$49</span></div>
+        </div>
+      </div>
+
+      <div id="b2b-controls" style="display:none">
+        <div class="slider-group">
+          <div class="slider-top">
+            <label>Clinicians validated</label>
+            <span class="val" id="clin-out">300</span>
+          </div>
+          <input type="range" min="10" max="500" step="5" value="300" id="clin-sl" oninput="fillSlider('clin-sl');update()">
+          <div class="slider-ticks"><span>10</span><span>150</span><span>300</span><span>500</span></div>
+        </div>
+        <div class="slider-group" style="margin-bottom:0">
+          <div class="slider-top">
+            <label>Pilot fee per clinician</label>
+            <span class="val" id="pilot-out">$6,000</span>
+          </div>
+          <input type="range" min="2000" max="15000" step="500" value="6000" id="pilot-sl" oninput="fillSlider('pilot-sl');update()">
+          <div class="slider-ticks"><span>$2k</span><span>$6k</span><span>$10k</span><span>$15k</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-label">Revenue vs annual costs</p>
+      <div class="bar-meta">
+        <span id="bar-label">$0 of $161,737</span>
+        <span class="bar-pct-val" id="bar-pct">0%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="card">
+      <p class="section-label">Annual cost breakdown — Year 1</p>
+      <table class="breakdown-table">
+        <thead>
+          <tr><th>Category</th><th>Type</th><th>Annual cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>People (contractors)</td><td><span class="badge badge-var">Variable</span></td><td>$120,000</td></tr>
+          <tr><td>AWS + AI infrastructure</td><td><span class="badge badge-var">Variable</span></td><td>$13,137</td></tr>
+          <tr><td>Legal + accounting</td><td><span class="badge badge-fix">Fixed</span></td><td>$8,000</td></tr>
+          <tr><td>Tools + marketing</td><td><span class="badge badge-var">Variable</span></td><td>$15,600</td></tr>
+          <tr><td>Contingency buffer</td><td><span class="badge badge-var">Variable</span></td><td>$5,000</td></tr>
+          <tr class="total-row"><td colspan="2">Total</td><td>$161,737</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <p class="section-label">Unit economics</p>
+      <div class="ltv-grid">
+        <div class="ltv-cell"><p class="lv">LTV</p><p class="lnum" id="ltv-val">$208</p><p class="lsub">per user lifetime</p></div>
+        <div class="ltv-cell"><p class="lv">CAC</p><p class="lnum">$15</p><p class="lsub">cost to acquire</p></div>
+        <div class="ltv-cell"><p class="lv">LTV / CAC</p><p class="lnum" id="ltv-cac">13.9x</p><p class="lsub">target ≥ 3x</p></div>
+        <div class="ltv-cell"><p class="lv">App Store cut</p><p class="lnum">30%</p><p class="lsub">Apple IAP fee</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right column -->
+  <div class="stats-panel">
+    <div class="stat-card" id="sc-revenue">
+      <p class="slabel">Annual revenue (net)</p>
+      <p class="sval" id="sv-revenue">—</p>
+      <p class="ssub" id="sv-rev-sub">—</p>
+    </div>
+    <div class="stat-card">
+      <p class="slabel">Annual operating costs</p>
+      <p class="sval">$161,737</p>
+      <p class="ssub">Year 1 baseline</p>
+    </div>
+    <div class="stat-card" id="sc-gap">
+      <p class="slabel">Gap / surplus</p>
+      <p class="sval" id="sv-gap">—</p>
+      <p class="ssub" id="sv-gap-sub">—</p>
+    </div>
+    <div class="stat-card" id="sc-be">
+      <p class="slabel">Break-even point</p>
+      <p class="sval" id="sv-be">—</p>
+      <p class="ssub" id="sv-be-sub">—</p>
+    </div>
+    <div class="verdict" id="verdict">Adjust the sliders to model your scenario.</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Miirror · Working draft — numbers to be confirmed with founder</p>
+  <a href="https://miirror.app" target="_blank">miirror.app ↗</a>
+</footer>
+
+<script>
+var mode = 'b2c';
+var COSTS = 161737;
+var APPLE = 0.30;
+var AVG_MONTHS = 12;
+var CAC = 15;
+
+function fillSlider(id) {
+  var el = document.getElementById(id);
+  var min = parseFloat(el.min);
+  var max = parseFloat(el.max);
+  var val = parseFloat(el.value);
+  var pct = ((val - min) / (max - min)) * 100;
+  el.style.background = 'linear-gradient(to right, #2B2D8F ' + pct + '%, #DDDFF5 ' + pct + '%)';
+}
+
+function fillAllSliders() {
+  ['users-sl','price-sl','clin-sl','pilot-sl'].forEach(fillSlider);
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('b2c-controls').style.display = m === 'b2c' ? '' : 'none';
+  document.getElementById('b2b-controls').style.display = m === 'b2b' ? '' : 'none';
+  document.getElementById('btn-b2c').classList.toggle('active', m === 'b2c');
+  document.getElementById('btn-b2b').classList.toggle('active', m === 'b2b');
+  update();
+}
+
+function fmt(n) { return '$' + Math.abs(Math.round(n)).toLocaleString(); }
+function fmtN(n) { return Math.round(n).toLocaleString(); }
+function setClr(id, cls) {
+  var el = document.getElementById(id);
+  el.classList.remove('green','red','amber');
+  if (cls) el.classList.add(cls);
+}
+
+function update() {
+  var rev, users, subLabel, beUsers;
+
+  if (mode === 'b2c') {
+    var u = parseInt(document.getElementById('users-sl').value);
+    var p = parseInt(document.getElementById('price-sl').value);
+    document.getElementById('users-out').textContent = fmtN(u);
+    document.getElementById('price-out').textContent = '$' + p;
+    var net = p * (1 - APPLE);
+    rev = u * net * 12;
+    users = u;
+    subLabel = '$' + p + '/mo · ' + fmt(net) + ' net after 30% App Store';
+    beUsers = Math.ceil(COSTS / (net * 12));
+    var ltv = net * AVG_MONTHS;
+    document.getElementById('ltv-val').textContent = fmt(ltv);
+    document.getElementById('ltv-cac').textContent = (ltv / CAC).toFixed(1) + 'x';
+    document.getElementById('sv-be').textContent = fmtN(beUsers) + ' users';
+    document.getElementById('sv-be-sub').textContent = 'at $' + p + '/mo (' + fmt(net) + ' net)';
+  } else {
+    var c = parseInt(document.getElementById('clin-sl').value);
+    var fee = parseInt(document.getElementById('pilot-sl').value);
+    document.getElementById('clin-out').textContent = fmtN(c);
+    document.getElementById('pilot-out').textContent = '$' + fee.toLocaleString();
+    rev = c * fee;
+    users = c;
+    subLabel = '$' + fee.toLocaleString() + '/clinician · annual pilot fee';
+    beUsers = Math.ceil(COSTS / fee);
+    document.getElementById('sv-be').textContent = fmtN(beUsers) + ' clinicians';
+    document.getElementById('sv-be-sub').textContent = 'to cover all operating costs';
+  }
+
+  var gap = rev - COSTS;
+  var pct = Math.min(rev / COSTS * 100, 200);
+  var pctCap = Math.min(pct, 100);
+
+  document.getElementById('sv-revenue').textContent = fmt(rev);
+  document.getElementById('sv-rev-sub').textContent = subLabel;
+  setClr('sc-revenue', pct >= 100 ? 'green' : pct >= 60 ? 'amber' : 'red');
+
+  document.getElementById('sv-gap').textContent = (gap >= 0 ? '+' : '-') + fmt(gap);
+  if (gap >= 0) {
+    setClr('sc-gap','green');
+    document.getElementById('sv-gap-sub').textContent = 'Surplus — profitable';
+  } else if (Math.abs(gap) < 60000) {
+    setClr('sc-gap','amber');
+    document.getElementById('sv-gap-sub').textContent = 'Funding gap (manageable)';
+  } else {
+    setClr('sc-gap','red');
+    document.getElementById('sv-gap-sub').textContent = 'Funding gap — outside capital needed';
+  }
+
+  var bar = document.getElementById('bar-fill');
+  bar.style.width = pctCap + '%';
+  bar.className = 'bar-fill' + (pct >= 100 ? ' cover' : pct >= 60 ? ' near' : '');
+  document.getElementById('bar-pct').textContent = Math.round(pct) + '%';
+  document.getElementById('bar-label').textContent = fmt(rev) + ' of $161,737';
+
+  var vEl = document.getElementById('verdict');
+  if (gap >= 0) {
+    vEl.className = 'verdict positive';
+    vEl.textContent = 'Profitable at this scenario — revenue exceeds all operating costs by ' + fmt(gap) + '. Strong position for reinvestment or extending runway.';
+  } else if (mode === 'b2c') {
+    var need = beUsers - users;
+    if (need <= 0) {
+      vEl.className = 'verdict positive';
+      vEl.textContent = 'Break-even cleared. Covering all costs with ' + fmtN(users) + ' users at this price point.';
+    } else {
+      vEl.className = 'verdict negative';
+      vEl.textContent = 'Need ' + fmtN(need) + ' more paying users to break even. Funding gap of ' + fmt(Math.abs(gap)) + ' must come from grants, investors, or reducing variable costs.';
+    }
+  } else {
+    var needC = beUsers - users;
+    if (needC <= 0) {
+      vEl.className = 'verdict positive';
+      vEl.textContent = 'Break-even cleared with ' + fmtN(users) + ' clinician contracts. Variable costs can scale with growth.';
+    } else {
+      vEl.className = 'verdict neutral';
+      vEl.textContent = 'Need ' + fmtN(needC) + ' more clinician contracts to break even. Currently at ' + Math.round(pct) + '% cost coverage — gap of ' + fmt(Math.abs(gap)) + '.';
+    }
+  }
+}
+
+update();
+fillAllSliders();
+</script>
+</body>
+</html>
